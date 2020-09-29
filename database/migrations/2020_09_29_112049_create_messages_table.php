@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateMessageTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,11 @@ class CreateMessageTable extends Migration
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('from_id');
-            $table->integer('to_id');
+            $table->id();
+            $table->bigInteger('from_id')->unsigned();
+            $table->foreign('from_id')->references('id')->on('users');
+            $table->bigInteger('to_id')->unsigned();
+            $table->foreign('to_id')->references('id')->on('users');
             $table->string('text');
             $table->timestamps();
         });

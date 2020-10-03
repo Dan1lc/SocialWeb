@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
-@section('title','Profile')
+@section('title','Start')
 
 @section('content')
-<h1>Profile</h1>
+<h1>Start</h1>
 @endsection

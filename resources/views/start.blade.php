@@ -3,8 +3,8 @@
 @section('title','Start')
 
 @section('content')
-@auth
-<h1>Hello, {{auth()->user()->name}}</h1>
-@endauth
+@guest
+<h1>Hello,guest</h1>
+@endguest
 <h1>Start</h1>
 @endsection

@@ -1,0 +1,16 @@
+/* Users */
+.users_inner {
+    display: flex;
+    flex-wrap: wrap;
+}
+.user_item {
+    width: 32%;
+
+    display: flex;
+}
+.user_img {
+    width: 6.25rem;
+    height: 6.25rem;
+
+    border-radius: 50%;
+}

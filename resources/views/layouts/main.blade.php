@@ -11,18 +11,25 @@
 
 <body>
     <div class="nav">
-        <a href="#">Unknown</a>
-        <a href="#">Unknown</a>
-        @auth
-        <a href="{{route('get-logout')}}">Выйти</a>
-        @endauth
-        @guest
-        <a href="{{route('login')}}">Авторизация</a>
-        <a href="{{route('register')}}">Регистрация</a>
-        @endguest
-
+        <div class="container">
+            <div class="nav_inner">
+                @auth
+                <a href="{{route('home')}}">Мой профиль</a>
+                @endauth
+                <a href="{{route('users')}}">Все пользователи</a>
+                @auth
+                <a href="{{route('get-logout')}}">Выйти</a>
+                @endauth
+                @guest
+                <a href="{{route('login')}}">Авторизация</a>
+                <a href="{{route('register')}}">Регистрация</a>
+                @endguest
+            </div>
+        </div>
     </div>
-    @yield('content')
+    <div class="container">
+        @yield('content')
+    </div>
 </body>
 
 </html>

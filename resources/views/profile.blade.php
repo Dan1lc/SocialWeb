@@ -1,7 +1,9 @@
 @extends('layouts.main')
 
-@section('title','Profile')
+@section('title','MyProfile')
 
 @section('content')
-<h1>Profile</h1>
+@auth
+<h1>{{ $user->surname." ".$user->name}}</h1>
+@endauth
 @endsection

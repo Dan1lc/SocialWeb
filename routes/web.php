@@ -12,15 +12,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('start');
-});
-Route::get('/logout','Auth\LoginController@logout')->name('get-logout');
+// Обычные роуты
+Route::get('/', 'mainController@start');//Начальная страница
+Route::get('/users', 'mainController@users')->name('users');//Начальная страница
+// Авторизация
 Auth::routes([
     'reset'=>false,
     'confirm'=>false,
     'verify'=>false
 ]);
+Route::get('/home', 'HomeController@index')->name('home');//Редирект на страницу профиля(Указано в файле LoginController)
+Route::get('/logout','Auth\LoginController@logout')->name('get-logout');//Разлогиниться
 
-
- Route::get('/home', 'HomeController@index')->name('home');

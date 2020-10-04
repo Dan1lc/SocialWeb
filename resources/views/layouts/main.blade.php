@@ -13,8 +13,14 @@
     <div class="nav">
         <a href="#">Unknown</a>
         <a href="#">Unknown</a>
+        @auth
+        <a href="{{route('get-logout')}}">Выйти</a>
+        @endauth
+        @guest
         <a href="{{route('login')}}">Авторизация</a>
         <a href="{{route('register')}}">Регистрация</a>
+        @endguest
+
     </div>
     @yield('content')
 </body>

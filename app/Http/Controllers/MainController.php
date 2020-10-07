@@ -11,10 +11,7 @@ use App\User;
 
 class MainController extends Controller
 {
-    public function admin()
-    {
-        return view('admin-panel');
-    }
+    
     
     public function start()
     {

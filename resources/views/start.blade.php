@@ -1,9 +1,9 @@
 @extends('layouts.master')
 
-@section('title','Start')
+@section('title','Начальная страница')
 
 @section('content')
 @guest
-<h1>Hello,guest</h1>
+<h1>Добро пожаловать</h1>
 @endguest
 @endsection

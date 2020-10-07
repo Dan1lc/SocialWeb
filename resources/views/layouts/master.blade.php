@@ -16,11 +16,9 @@
                 @auth
                 <a href="{{route('home')}}">Мой профиль</a>
                 @endauth
-                <a href="{{route('users')}}">Все пользователи</a>
+                <a href="/user">Все пользователи</a>
                 @auth
-                @if (Auth::user()->status=='admin')
-                <a href="{{route('admin-panel')}}">Панель администратора</a>
-                @endif
+                <a href="/friend">Друзья</a>
                 <a href="{{route('get-logout')}}">Выйти</a>
                 @endauth
                 @guest

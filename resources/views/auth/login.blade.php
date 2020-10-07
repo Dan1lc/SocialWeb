@@ -1,7 +1,6 @@
 @extends('auth.layouts.master')
-@section('title','login')
+@section('title','Авторизация')
 @section('content')
-
 <div class="card">
     <div class="card-header">Авторизация</div>
     <form method="POST" action="{{ route('login') }}">
@@ -30,5 +29,4 @@
         @endif
     </form>
 </div>
-
 @endsection

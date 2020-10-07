@@ -10,6 +10,9 @@
             <img src="img/profile/{{$user->photo}}" alt="Нет фото">
         </div>
         <div class="user_name">{{$user->name}}</div>
+        @auth
+        <a href="/friend_request/{{$user->id}}/edit">Добавить в друзья</a>
+        @endauth
     </div>
     @endforeach
 </div>

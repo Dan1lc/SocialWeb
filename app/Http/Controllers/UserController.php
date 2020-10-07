@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -14,7 +15,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        if (isset(Auth::user()->id)) {
+            $users = User::where('id', '<>', Auth::user()->id)->get();;
+        }
+        else {
+            $users = User::all();;
+        }
         return view('user.index')->with(['users' => $users]);
     }
 
@@ -77,7 +83,7 @@ class UserController extends Controller
         $user->fathersname=$request->fathersname;
         $user->email=$request->email;
         $user->save();
-        return view('profile');
+        return redirect('/home');
     }
 
     /**

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Friend;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class FriendController extends Controller
+use Illuminate\Support\Facades\Auth;
+use App\Friend_Request;
+
+class FriendRequestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,10 @@ class FriendController extends Controller
      */
     public function index()
     {
-        $friends = Friend::where('user_id', '=', Auth::user()->id)->get();
-        return view('friend.all')->with(['friends'=>$friends]);
+        $requests=Friend_Request::where('to_id','=',Auth::user()->id)->get();
+        return view('friend.request')->with(['requests'=>$requests]);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -42,10 +44,10 @@ class FriendController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Friend  $friend
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Friend $friend)
+    public function show($id)
     {
         //
     }
@@ -53,34 +55,38 @@ class FriendController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Friend  $friend
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Friend $friend)
+    public function edit($id)
     {
-        //
+        $friend_request=new Friend_Request();
+        $friend_request->from_id=Auth::user()->id;
+        $friend_request->to_id=$id;
+        $friend_request->save();
+        return redirect('home')->with(['answer'=>'Запрос на добавление в друзья отправлен']);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Friend  $friend
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Friend $friend)
+    public function update(Request $request, $id)
     {
-        //
+        return redirect('/home');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Friend  $friend
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Friend $friend)
+    public function destroy($id)
     {
-        //
+        return redirect('/');
     }
 }

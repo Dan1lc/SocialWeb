@@ -48,3 +48,14 @@ a {
 
     border-radius: 50%;
 }
+
+/* Friend */
+.friend_nav {
+    display: flex;
+    justify-content: space-around;
+}
+.friend_nav_item {
+    width: 50%;
+
+    text-align: center;
+}

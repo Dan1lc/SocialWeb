@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.master')
 
 @section('title','Start')
 
@@ -6,5 +6,4 @@
 @guest
 <h1>Hello,guest</h1>
 @endguest
-<h1>Start</h1>
 @endsection

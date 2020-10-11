@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Post;
+
 class HomeController extends Controller
 {
     /**
@@ -26,6 +28,7 @@ class HomeController extends Controller
     public function index()
     {
         $user=Auth::user();
-        return view('profile')->with(['user'=>$user]);
+        $posts=Post::where('user_id',$user->id)->get();
+        return view('profile')->with(['user'=>$user,'posts'=>$posts]);
     }
 }

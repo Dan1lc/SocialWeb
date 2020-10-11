@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Post;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -53,7 +54,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user=User::find($id);
+        $posts=Post::where('user_id',$id)->get();
+        return view('profile')->with(['user'=>$user,'posts'=>$posts]);
     }
 
     /**

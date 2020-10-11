@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Friend extends Model
 {
-    //
+    public function getUser()
+    {
+        $user=User::find($this->friend_id);
+        return $user;
+    }
 }

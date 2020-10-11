@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -38,5 +39,28 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    public function status()
+    {
+        $check=Friend_Request::where([
+            ['from_id','=',$this->id],
+            ['to_id','=',Auth::user()->id],
+        ])->get();
+        if (!($check->isEmpty())) {
+            return "Ваш подписчик";
+        }
+        $check=Friend_Request::where([
+            ['to_id','=',$this->id],
+            ['from_id','=',Auth::user()->id],
+        ])->get();
+        if (!($check->isEmpty())) {
+            return "Запрос отправлен";
+        }
+        $check=Friend::where([
+            ['user_id','=',$this->id],
+            ['friend_id','=',Auth::user()->id],
+        ])->get();
+        if (!($check->isEmpty())) {
+            return "Ваш друг";
+        }
+    }
 }

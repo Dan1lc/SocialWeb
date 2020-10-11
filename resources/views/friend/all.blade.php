@@ -8,11 +8,12 @@
     @foreach ($friends as $friend)
     <div class="user_item">
         <div class="user_img">
-            <img src="img/profile/{{$friend->photo}}" alt="Нет фото">
+            <img src="img/profile/{{$friend->getUser()->photo}}" alt="Нет фото">
         </div>
-        <div class="user_name">{{$friend->name}}</div>
-        <a href="/friend_request/{{$user->id}}/edit">Удалить</a>
+        <div class="user_name">{{$friend->getUser()->name}}</div>
+        <a href="/friend/{{$friend->getUser()->id}}/edit">Удалить</a>
     </div>
     @endforeach
+
 </div>
 @endsection

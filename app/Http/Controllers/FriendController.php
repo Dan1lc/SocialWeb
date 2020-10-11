@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Friend;
+use App\Friend_Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,8 @@ class FriendController extends Controller
     public function index()
     {
         $friends = Friend::where('user_id', '=', Auth::user()->id)->get();
-        return view('friend.all')->with(['friends'=>$friends]);
+        $friend_requests=Friend_Request::where('to_id', '=', Auth::user()->id)->count();
+        return view('friend.all')->with(['friends'=>$friends,'friend_requests'=>$friend_requests]);
     }
     /**
      * Show the form for creating a new resource.
@@ -47,7 +49,7 @@ class FriendController extends Controller
      */
     public function show(Friend $friend)
     {
-        //
+        
     }
 
     /**
@@ -56,9 +58,17 @@ class FriendController extends Controller
      * @param  \App\Friend  $friend
      * @return \Illuminate\Http\Response
      */
-    public function edit(Friend $friend)
+    public function edit(int $friend)
     {
-        //
+        Friend::where([
+            ['user_id','=',Auth::user()->id],
+            ['friend_id','=',$friend],
+        ])->delete();
+        Friend::where([
+            ['user_id','=',$friend],
+            ['friend_id','=',Auth::user()->id]
+        ])->delete();
+        return redirect('/friend');
     }
 
     /**

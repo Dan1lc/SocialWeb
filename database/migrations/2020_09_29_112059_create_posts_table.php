@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('title');
             $table->string('text');
-            $table->string('likes');
+            $table->string('likes')->default('none');
             $table->timestamps();
         });
     }

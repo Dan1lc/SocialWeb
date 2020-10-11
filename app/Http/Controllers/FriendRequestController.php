@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use App\Friend_Request;
+use App\Friend;
 
 class FriendRequestController extends Controller
 {
@@ -17,7 +18,8 @@ class FriendRequestController extends Controller
     public function index()
     {
         $requests=Friend_Request::where('to_id','=',Auth::user()->id)->get();
-        return view('friend.request')->with(['requests'=>$requests]);
+        $friend_requests=Friend_Request::where('to_id', '=', Auth::user()->id)->count();
+        return view('friend.request')->with(['requests'=>$requests,'friend_requests'=>$friend_requests]);
     }
 
     /**
@@ -58,13 +60,13 @@ class FriendRequestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id)//Отправить заявку
     {
         $friend_request=new Friend_Request();
         $friend_request->from_id=Auth::user()->id;
         $friend_request->to_id=$id;
         $friend_request->save();
-        return redirect('home')->with(['answer'=>'Запрос на добавление в друзья отправлен']);
+        return redirect('/user');
     }
 
     /**
@@ -74,9 +76,21 @@ class FriendRequestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id)//Принять заявку
     {
-        return redirect('/home');
+        // Френдшип
+        $friend=new Friend();
+        $request=Friend_Request::find($id);
+        $friend->user_id=$request->from_id;
+        $friend->friend_id=$request->to_id;
+        $friend->save();
+        // Обратный френдшип
+        $friend=new Friend();
+        $friend->user_id=$request->to_id;
+        $friend->friend_id=$request->from_id;
+        $friend->save();
+        Friend_Request::find($id)->delete();
+        return redirect('/friend_request');
     }
 
     /**
@@ -85,8 +99,9 @@ class FriendRequestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id)//Отклонить заявку
     {
-        return redirect('/');
+        Friend_Request::find($id)->delete();
+        return redirect('/friend_request');
     }
 }

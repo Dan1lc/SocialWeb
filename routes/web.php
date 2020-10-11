@@ -19,6 +19,7 @@ Auth::routes(['reset'=>false,'confirm'=>false,'verify'=>false]);
 Route::get('/home', 'HomeController@index')->name('home');//Редирект на страницу профиля(Указано в файле LoginController)
 Route::get('/logout','Auth\LoginController@logout')->name('get-logout');//Разлогиниться
 // Ресурсные
+Route::resource('post', 'PostController');
 Route::resource('user', 'UserController');
 Route::resource('friend', 'FriendController');
 Route::resource('friend_request', 'FriendRequestController');

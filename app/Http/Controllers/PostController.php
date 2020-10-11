@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -14,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +36,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post=new Post();
+        $post->user_id=Auth::user()->id;
+        $post->title=$request->title;
+        $post->text=$request->text;
+        $post->save();
+        return redirect('/home');
     }
 
     /**
@@ -55,9 +61,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('post.edit')->with(['post' => $post]);
     }
 
     /**
@@ -67,9 +74,13 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($id);
+        $post->title=$request->title;
+        $post->text = $request->text;
+        $post->save();
+        return redirect('/home');
     }
 
     /**
@@ -78,8 +89,9 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+        Post::find($id)->delete();
+        return redirect('home');
     }
 }
